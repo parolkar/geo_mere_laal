@@ -1,0 +1,30 @@
+<% model_name ||= "geo" %>
+
+<div id="geo-mere-laal-wait" style="display:none;" > Please wait while we retrieve your location... </div>
+<div id="geo-mere-laal-fields" style="display:none;">                                     
+  <%= label model_name,"lat","Latitude" -%>
+  <%= text_field model_name, "lat" %>   
+  <br>
+  <%= label model_name,"lng","Longitude" -%>    
+  <%= text_field model_name, "lng" %>
+</div >   
+
+<script>
+  if(GeoMereLaal.isBrowserCompatible)
+  { 
+     document.getElementById("geo-mere-laal-wait").style.display = "block"; 
+     GeoMereLaal.onReceive = function(){
+       document.getElementById("<%=model_name+"_lat" -%>").setAttribute("value",GeoMereLaal.lat()); 
+       document.getElementById("<%=model_name+"_lng" -%>").setAttribute("value",GeoMereLaal.lng()); 
+       document.getElementById("geo-mere-laal-fields").style.display = "block"; 
+       document.getElementById("geo-mere-laal-wait").style.display = "none"; 
+     }
+     GeoMereLaal.request();
+  }else{
+
+    document.getElementById("geo-mere-laal-fields").style.display = "block"; 
+  }
+  
+   
+
+</script>

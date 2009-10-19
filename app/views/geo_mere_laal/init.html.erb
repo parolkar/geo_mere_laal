@@ -1,18 +1,41 @@
 //Author: Abhishek Parolkar ( abhishek@parolkar.com )
 
 
-GeoMereLaal = function(){
 
-  var latitude = new String();
+GeoMereLaal = function(){
   var longitude = new String();
+  var latitude =  new String();
   
   return {
     lat: function(){
-      return latitude; 
+      return this.getCookie("latitude"); 
       },
     lng: function(){
-      return longitude;
+      return this.getCookie("longitude");
       },
+    setCookie: function (c_name,value,expiredays)
+	  {
+	    var exdate=new Date();
+	    exdate.setDate(exdate.getDate()+expiredays);
+	    document.cookie=c_name+ "=" +escape(value)+
+	    ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+	  },
+	getCookie: function (c_name)
+	  {
+	    if (document.cookie.length>0)
+	      {
+	        c_start=document.cookie.indexOf(c_name + "=");
+	        if (c_start!=-1)
+	          {
+	          c_start=c_start + c_name.length+1;
+	          c_end=document.cookie.indexOf(";",c_start);
+	          if (c_end==-1) c_end=document.cookie.length;
+	          return unescape(document.cookie.substring(c_start,c_end));
+	          }
+	      }
+	return "";
+	},
+	dataExpires: 1, //These are number of days
     isBrowserCompatible: function(){   
       var userAgent = navigator.userAgent.toLowerCase();
 	  // Figure out what browser is being used in Jquery Style
@@ -31,19 +54,40 @@ GeoMereLaal = function(){
 	   }
 
       },
-    request: function(){
+    fetch: function(){
       if(this.isBrowserCompatible())
-        {
-          navigator.geolocation.getCurrentPosition(function(position) {  
-	        latitude = position.coords.latitude;
-	        longitude = position.coords.longitude;
+        { 
+
+          navigator.geolocation.getCurrentPosition(function(position) {    
+            
+	        GeoMereLaal.setCookie("latitude",position.coords.latitude,GeoMereLaal.dataExpires);
+	        GeoMereLaal.setCookie("longitude",position.coords.longitude,GeoMereLaal.dataExpires); 
+	        GeoMereLaal.onReceive();    
 	        
-	      });
+	      },GeoMereLaal.onError);
           return true;
 
         }else{return false;}
-      } 
-
+      },
+    request:function(){ 
+      var lat = this.lat();
+      var lng = this.lng();
+      if(lat =='' || lng == '')
+        {
+          this.fetch();
+        }else{
+          GeoMereLaal.onReceive();
+        } 
+      
+      },
+    onReceive:function(){         
+     //This is a stub to be overridden by user's code 
+    },
+    onError:function(error){         
+     //This can be overridden by user's code
+     alert("We couldn't retrieve your location "); 
+    }
+    
 
 
 
