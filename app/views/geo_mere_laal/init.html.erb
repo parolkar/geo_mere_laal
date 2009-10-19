@@ -1,0 +1,51 @@
+//Author: Abhishek Parolkar ( abhishek@parolkar.com )
+
+
+GeoMereLaal = function(){
+
+  var latitude = new String();
+  var longitude = new String();
+  
+  return {
+    lat: function(){
+      return latitude; 
+      },
+    lng: function(){
+      return longitude;
+      },
+    isBrowserCompatible: function(){   
+      var userAgent = navigator.userAgent.toLowerCase();
+	  // Figure out what browser is being used in Jquery Style
+	  this.browser = {
+		version: (userAgent.match( /.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/ ) || [0,'0'])[1],
+		safari: /webkit/.test( userAgent ),
+		opera: /opera/.test( userAgent ),
+		msie: /msie/.test( userAgent ) && !/opera/.test( userAgent ),
+		mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent )
+	  };
+
+      if (this.browser.mozilla && navigator.geolocation) {  
+	     return true; 
+	   } else {  
+	     return false;  
+	   }
+
+      },
+    request: function(){
+      if(this.isBrowserCompatible())
+        {
+          navigator.geolocation.getCurrentPosition(function(position) {  
+	        latitude = position.coords.latitude;
+	        longitude = position.coords.longitude;
+	        
+	      });
+          return true;
+
+        }else{return false;}
+      } 
+
+
+
+
+}}();   
+
