@@ -6,7 +6,41 @@
   <%= latitude_field model_name, "lat" %>   
   <br>
   <%= label model_name,"lng","Longitude" -%>    
-  <%= longitude_field model_name, "lng" %>
+  <%= longitude_field model_name, "lng" %> 
+                                                
+  
+  
+  <br>
+  <%= label model_name,"street","Street" -%>
+  <%= street_field model_name, "street" %>    
+
+  <br>
+  <%= label model_name,"locality","Locality" -%>
+  <%= locality_field model_name, "locality" %>  
+
+  <br>
+  <%= label model_name,"city","City" -%>
+  <%= city_field model_name, "city" %>  
+
+  <br>
+  <%= label model_name,"state","State" -%> 
+  <%= state_field model_name, "state" %>      
+  
+  <br>
+  <%= label model_name,"country_name","Country Name" -%>
+  <%= country_name_field model_name, "country_name" %>
+
+  <br>
+  <%= label model_name,"country_code","Country Code" -%>
+  <%= country_code_field model_name, "country_code" %> 
+
+  <br>
+  <%= label model_name,"postal_code","Postal Code" -%>
+  <%= postal_code_field model_name, "postal_code" %> 
+                                                        
+  <br><br><br>
+  <%= label model_name,"address","Full Address" -%>
+  <%= full_address_field model_name, "address" %>
 
 </div >   
 
@@ -15,11 +49,12 @@
   { 
      document.getElementById("geo-mere-laal-wait").style.display = "block"; 
      GeoMereLaal.onReceive = function(){
-     
+       
        document.getElementById("geo-mere-laal-fields").style.display = "block"; 
        document.getElementById("geo-mere-laal-wait").style.display = "none"; 
+       
      }
-     GeoMereLaal.request();
+     
   }else{
 
     document.getElementById("geo-mere-laal-fields").style.display = "block"; 

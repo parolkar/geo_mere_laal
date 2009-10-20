@@ -3,8 +3,7 @@
 
 
 GeoMereLaal = function(){
-    
-  
+ 
   return {
     lat: function(){
       return this.getCookie("latitude"); 
@@ -82,6 +81,7 @@ GeoMereLaal = function(){
     successCallbacks:function(){ 
       GeoMereLaal.updateLatitude_callback();
       GeoMereLaal.updateLongitude_callback();
+      GeoMereLaal.reverseCoderHook();
       GeoMereLaal.onReceive();
 
     },
@@ -97,10 +97,109 @@ GeoMereLaal = function(){
     },
     updateLongitude_callback:function(){
     //This is a callback stub to be overridden by user level code   
+    },
+    reverseCoderHook:function(){         
+     //This is a stub to be overridden by GMLReverseCoder's code 
     }
 
+}}();              
   
 
+GMLloadGMapAPI= function(api_key){
+    document.write("<script src=\"http://maps.google.com/maps?file=api&v=2&sensor=true&key="+api_key+"\" type=\"text/javascript\"></script>");
+  }
 
-}}();   
+
+GMLReverseCoder =  function(){  
+  
+
+  if(typeof GClientGeocoder == "undefined"){
+    GMLloadGMapAPI("<%= GML_GMAP_APIKEY -%>")};  
+
+ 
+return {
+  request:function(gml_obj){ 
+   geocoder = new GClientGeocoder();
+   latlng = new GLatLng(parseFloat(gml_obj.lat()),parseFloat(gml_obj.lng()));
+   geocoder.getLocations(latlng, this.responseHandler);
+
+  },
+  responseHandler:function(response){
+    if (!response || response.Status.code != 200) {
+	    alert("GMLError (Unable to make GMap Request): Status Code:" + response.Status.code);
+	  } else {
+	    place = response.Placemark[0];
+	    point = new GLatLng(place.Point.coordinates[1],place.Point.coordinates[0]);
+	    
+	    
+	    try{
+	    GMLReverseCoder.updateFullAddress_callback(place.address);
+	    } catch (e) {}
+	    
+	    try{
+	    GMLReverseCoder.updateCountryCode_callback(place.AddressDetails.Country.CountryNameCode); 
+	    } catch (e) {} 
+	  
+	    try{
+	    GMLReverseCoder.updateCountryName_callback(place.AddressDetails.Country.CountryName);
+	    } catch (e) {} 
+	    
+	    try{
+	    GMLReverseCoder.updateState_callback( place.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName);
+	    } catch (e) {} 
+	
+	    try{
+	    GMLReverseCoder.updateCity_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName);   
+        } catch (e) {} 
+	    
+	    try{  
+	    GMLReverseCoder.updateLocality_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName);
+	    }catch (e) {
+	    GMLReverseCoder.updateLocality_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.DependentLocality.DependentLocalityName); 
+	    }
+	
+	    try{
+	    GMLReverseCoder.updateStreet_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.DependentLocality.Thoroughfare.ThoroughfareName);     
+	    }catch (e) {} 
+	
+	
+	    try{
+	    GMLReverseCoder.updatePostalCode_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.PostalCode.PostalCodeNumber); 
+	    }catch (e) {}
+	
+	
+	  }
+	
+
+  },
+  updateFullAddress_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },  
+  updateCountryName_callback:function(value){
+  //This is a callback stub to be overridden by user level code 
+  },
+  updateCountryCode_callback:function(value){
+  //This is a callback stub to be overridden by user level code 
+  },
+  updateState_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updateCity_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updateLocality_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updateStreet_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updatePostalCode_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  }
+  
+
+}}();
+
+
+
 
