@@ -3,8 +3,7 @@
 
 
 GeoMereLaal = function(){
-  var longitude = new String();
-  var latitude =  new String();
+    
   
   return {
     lat: function(){
@@ -62,7 +61,7 @@ GeoMereLaal = function(){
             
 	        GeoMereLaal.setCookie("latitude",position.coords.latitude,GeoMereLaal.dataExpires);
 	        GeoMereLaal.setCookie("longitude",position.coords.longitude,GeoMereLaal.dataExpires); 
-	        GeoMereLaal.onReceive();    
+	        GeoMereLaal.successCallbacks();
 	        
 	      },GeoMereLaal.onError);
           return true;
@@ -76,19 +75,31 @@ GeoMereLaal = function(){
         {
           this.fetch();
         }else{
-          GeoMereLaal.onReceive();
+          GeoMereLaal.successCallbacks();
         } 
       
-      },
+      }, 
+    successCallbacks:function(){ 
+      GeoMereLaal.updateLatitude_callback();
+      GeoMereLaal.updateLongitude_callback();
+      GeoMereLaal.onReceive();
+
+    },
     onReceive:function(){         
      //This is a stub to be overridden by user's code 
     },
     onError:function(error){         
      //This can be overridden by user's code
      alert("We couldn't retrieve your location "); 
+    },
+    updateLatitude_callback:function(){
+    //This is a callback stub to be overridden by user level code   
+    },
+    updateLongitude_callback:function(){
+    //This is a callback stub to be overridden by user level code   
     }
-    
 
+  
 
 
 }}();   
