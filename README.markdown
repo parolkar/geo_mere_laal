@@ -1,6 +1,7 @@
 GeoMereLaal   
 ===========
 (जियो मेरे लाल : ji-oo-me-re-laal : "Keep it up baby!")
+
   GeoMereLaal plugin is all you need to create Location-Aware rails application based on   [W3C Geolocaton API](http://dev.w3.org/geo/api/spec-source.html "W3C draft for geolocation api"). 
  
 ### What's Location-Awareness?
