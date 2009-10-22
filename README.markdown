@@ -1,5 +1,6 @@
-GeoMereLaal   (जियो मेरे लाल : ji-oo-me-re-laal)
-=================================================
+GeoMereLaal   
+===========
+(जियो मेरे लाल : ji-oo-me-re-laal : "Keep it up baby!")
   GeoMereLaal plugin is all you need to create Location-Aware rails application based on   [W3C Geolocaton API](http://dev.w3.org/geo/api/spec-source.html "W3C draft for geolocation api"). 
  
 ### What's Location-Awareness?
@@ -15,7 +16,7 @@ GeoMereLaal   (जियो मेरे लाल : ji-oo-me-re-laal)
    <tr>
    <td>Mozilla Firefox</td>
 
-   <td>supported in [Firefox 3.5](http://www.mozilla.com/en-US/firefox/geolocation/  "browser support") and later 	versions.</td>
+   <td>supported in <a title="browser support" href="http://www.mozilla.com/en-US/firefox/geolocation/">Firefox 3.5</a> and later 	versions.</td>
 	</tr>
 	<tr>
 	<td>Chrome</td>
