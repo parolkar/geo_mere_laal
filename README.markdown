@@ -52,26 +52,27 @@ How do I use it?
 Note: You may want to generate Address model this way script/generate model Address street:string locality:string city:string state:string country:string zip:string lat:string lng:string
 
 <pre><code>   
-<% form_tag('#') do  -%>
-   <%= label :address,"street","Street" -%>
-   <%= street_field :address, "street" %>    
+
+&lt;% form_tag('#') do  -%&gt;
+   &lt;%= label :address,&quot;street&quot;,&quot;Street&quot; -%&gt;
+   &lt;%= street_field :address, &quot;street&quot; %&gt;    
 	
-   <%= label :address,"locality","Locality" -%>
-   <%= locality_field :address, "locality" %>  
+   &lt;%= label :address,&quot;locality&quot;,&quot;Locality&quot; -%&gt;
+   &lt;%= locality_field :address, &quot;locality&quot; %&gt;  
 
-   <%= label :address,"city","City" -%>
-   <%= city_field :address, "city" %>  
+   &lt;%= label :address,&quot;city&quot;,&quot;City&quot; -%&gt;
+   &lt;%= city_field :address, &quot;city&quot; %&gt;  
 
-   <%= label :address,"state","State" -%> 
-   <%= state_field :address, "state" %>      
+   &lt;%= label :address,&quot;state&quot;,&quot;State&quot; -%&gt; 
+   &lt;%= state_field :address, &quot;state&quot; %&gt;      
 
-   <%= label :address,"country","Country Name" -%>
-   <%= country_name_field :address, "country" %>
+   &lt;%= label :address,&quot;country&quot;,&quot;Country Name&quot; -%&gt;
+   &lt;%= country_name_field :address, &quot;country&quot; %&gt;
 
-   <%= label :address,"zip","Postal Code" -%>
-   <%= postal_code_field :address, "zip" %>
+   &lt;%= label :address,&quot;zip&quot;,&quot;Postal Code&quot; -%&gt;
+   &lt;%= postal_code_field :address, &quot;zip&quot; %&gt;
     
-<% end %> 
+&lt;% end %&gt;
 </code></pre>
 	
 ### Step 3: ...... there is no step 3 ;-) 
