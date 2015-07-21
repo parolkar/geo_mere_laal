@@ -82,7 +82,7 @@ Output
 ------ 
    
 <div class="image">        
-          <img src="/parolkar/geo_mere_laal/raw/master/docs/geo_mere_laal.png"/>
+          <img src="https://raw.githubusercontent.com/parolkar/geo_mere_laal/master/docs/geo_mere_laal.png"/>
 </div>
 
 Copyright (c) 2009 Abhishek Parolkar, released under the MIT license
